@@ -9,8 +9,16 @@ buildscript {
   def expoModulesCorePlugin = new File(project(":expo-modules-core").projectDir.absolutePath, "ExpoModulesCorePlugin.gradle")
   if (expoModulesCorePlugin.exists()) {
     apply from: expoModulesCorePlugin
-    applyKotlinExpoModulesCorePlugin()
+    
+    // Check if the android block exists before applying the plugin
+    if (project.hasProperty('android')) {
+      applyKotlinExpoModulesCorePlugin()
+    } else {
+      println("Skipping applyKotlinExpoModulesCorePlugin since 'android' block is not available")
+    }
   }
+}
+
 
   // Simple helper that allows the root project to override versions declared by this library.
   ext.safeExtGet = { prop, fallback ->
