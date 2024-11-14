@@ -81,6 +81,11 @@ android {
   }
 }
 
+// Add JVM Toolchain to enforce Java 17 for all Kotlin tasks
+kotlin {
+  jvmToolchain(17)
+}
+
 repositories {
   mavenCentral()
 }
